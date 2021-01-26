@@ -1,3 +1,4 @@
 import { combineReducers } from 'redux';
+import { accountsRecords } from './accounts';
 
-export default combineReducers({});
+export default combineReducers({ accountsRecords });

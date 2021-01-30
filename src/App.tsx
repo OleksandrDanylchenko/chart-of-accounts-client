@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import HomeContainer from './pages/Accounts/AccountsContainer';
 import { Provider } from 'react-redux';
+import AccountsContainer from './pages/Accounts/AccountsContainer';
 import { store } from './redux/store';
 
 const App: FunctionComponent = () => {
   return (
     <Provider store={store}>
-      <h1>ggg</h1>
-      <HomeContainer />
+      <AccountsContainer />
     </Provider>
   );
 };

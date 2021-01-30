@@ -20,12 +20,13 @@ export const accountsRecords = (
         ...state,
         accountsRequestStatus: 'loading'
       };
-    case fetchAccountsRoutine.SUCCESS:
+    case fetchAccountsRoutine.SUCCESS: {
       return {
         ...state,
-        accounts: action.payload.accounts,
+        accounts: action.payload,
         accountsRequestStatus: 'succeeded'
       };
+    }
     case fetchAccountsRoutine.FAILURE:
       return {
         ...state,

@@ -9,10 +9,11 @@ type AccountsViewProps = IAccountsView;
 
 const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
   const { accounts } = props;
+
   return (
     <ul>
       {accounts.map((account) => (
-        <li key={account.id}>{account}</li>
+        <li key={account.id}>{account.title}</li>
       ))}
     </ul>
   );

@@ -1,9 +1,10 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../redux/state';
 import { fetchAccountsRoutine } from '../../redux/routines';
 import AccountsView from './AccountsView';
 import ApiError from '../../navigation/ApiError/ApiError';
+import { IAccount } from '../../models/accounts/IAccount';
 
 type AccountsContainerProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
@@ -13,16 +14,23 @@ const AccountsContainer: FunctionComponent<AccountsContainerProps> = (
 ) => {
   const { accounts, accountsRequestStatus, fetchAccounts } = props;
 
+  const [sortedAccounts, setSortedAccounts] = useState<IAccount[]>([]);
+
   useEffect(() => {
     if (accountsRequestStatus === 'idle') {
       fetchAccounts();
     }
   }, [accountsRequestStatus, fetchAccounts]);
 
+  useEffect(() => {
+    const sortedAccounts = accounts?.sort((a, b) => a.number - b.number);
+    setSortedAccounts(sortedAccounts ?? []);
+  }, [accounts]);
+
   return (
     <div>
-      {accounts?.length && <AccountsView accounts={accounts} />}
-      {accountsRequestStatus === 'failed' && !accounts?.length && (
+      {sortedAccounts?.length && <AccountsView accounts={sortedAccounts} />}
+      {accountsRequestStatus === 'failed' && !sortedAccounts?.length && (
         <ApiError apiType={'accounts'} />
       )}
     </div>

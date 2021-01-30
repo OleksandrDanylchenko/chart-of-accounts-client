@@ -5,6 +5,7 @@ import { fetchSubAccountsRoutine } from '../../redux/routines';
 import { Redirect, useParams } from 'react-router-dom';
 import { ISubAccount } from '../../models/subAccounts/ISubAccount';
 import SubAccountsView from './SubAccountsView';
+import ApiError from '../../navigation/ApiError/ApiError';
 
 interface ISubAccountsContainerParams {
   syntheticAccountId?: string;
@@ -64,6 +65,8 @@ const SyntheticAccountsContainer: FunctionComponent<SyntheticAccountsContainerPr
       {!isAccountIdNumber && syntheticAccountId === undefined && (
         <Redirect to={{ pathname: '/accounts' }} />
       )}
+      {subAccountsRequestStatus === 'failed' &&
+        !syntAccountSubAccounts?.length && <ApiError apiType={'subAccounts'} />}
       <SubAccountsView
         subAccounts={syntAccountSubAccounts}
         openedSubAccountId={openedSubAccountId}

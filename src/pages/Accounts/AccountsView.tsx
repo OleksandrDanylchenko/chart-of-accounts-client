@@ -5,14 +5,19 @@ import AccountView from './components/AccountView';
 
 interface IAccountsView {
   accounts: IAccount[];
+  openedAccountId?: string;
 }
 
 type AccountsViewProps = IAccountsView;
 
 const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
-  const { accounts } = props;
+  const { accounts, openedAccountId } = props;
 
-  const [openedAccounts, setOpenedAccounts] = useState<number[]>([]);
+  const isOpenedAccountIdNumber =
+    openedAccountId !== undefined && Number.isInteger(Number(openedAccountId));
+  const [openedAccounts, setOpenedAccounts] = useState<number[]>(
+    isOpenedAccountIdNumber ? [Number(openedAccountId)] : []
+  );
 
   const handleClick = useCallback(
     (_, titleProps) => {
@@ -33,17 +38,19 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
 
   return (
     <Accordion>
-      {accounts.map((account, index) => (
+      {accounts.map((account) => (
         <div key={account.id}>
           <Accordion.Title
-            index={index}
-            active={openedAccounts.includes(index)}
+            index={account.id}
+            active={openedAccounts.includes(account.id as number)}
             onClick={handleClick}
           >
             <AccountView account={account} />
           </Accordion.Title>
-          <Accordion.Content active={openedAccounts.includes(index)}>
-            <>{openedAccounts.includes(index) && <p>Text</p>}</>
+          <Accordion.Content
+            active={openedAccounts.includes(account.id as number)}
+          >
+            <p>Text</p>
           </Accordion.Content>
         </div>
       ))}

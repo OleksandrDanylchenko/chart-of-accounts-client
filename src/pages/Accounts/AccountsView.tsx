@@ -3,6 +3,7 @@ import { IAccount } from '../../models/accounts/IAccount';
 import { Accordion } from 'semantic-ui-react';
 import AccountTitle from './components/AccountTitle';
 import AccountDescription from './components/AccountDescription';
+import { history } from '../../navigation/RouterConfig';
 
 interface IAccountsView {
   accounts: IAccount[];
@@ -21,15 +22,17 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
 
   const handleClick = useCallback(
     (_, titleProps) => {
-      const { index } = titleProps;
+      const { index: id } = titleProps;
 
       let updatedOpenedAccounts = [...openedAccounts];
-      if (openedAccounts.includes(index)) {
+      if (openedAccounts.includes(id)) {
+        history.replace({ pathname: '/accounts' });
         updatedOpenedAccounts = updatedOpenedAccounts.filter(
-          (accountIndex) => accountIndex !== index
+          (accountIndex) => accountIndex !== id
         );
       } else {
-        updatedOpenedAccounts.push(index);
+        history.replace({ pathname: `/accounts/${id}` });
+        updatedOpenedAccounts.push(id);
       }
       setOpenedAccounts(updatedOpenedAccounts);
     },

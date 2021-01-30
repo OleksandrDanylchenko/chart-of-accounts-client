@@ -3,6 +3,7 @@ import { ISyntheticAccount } from '../../models/syntheticAccounts/ISyntheticAcco
 import { Accordion } from 'semantic-ui-react';
 import AccountTitle from '../Accounts/components/AccountTitle';
 import SyntheticAccountDescription from './components/SytheticAccountDescription';
+import { history } from '../../navigation/RouterConfig';
 
 interface ISyntheticAccounts {
   syntheticAccounts: ISyntheticAccount[];
@@ -25,19 +26,25 @@ const SyntheticAccountsView: FunctionComponent<SyntheticAccountProps> = (
 
   const handleClick = useCallback(
     (_, titleProps) => {
-      const { index } = titleProps;
+      const { index: id } = titleProps;
+
+      const accountId = syntheticAccounts[0].accountId;
 
       let updatedOpenedSyntAccounts = [...openedSyntAccounts];
-      if (openedSyntAccounts.includes(index)) {
+      if (openedSyntAccounts.includes(id)) {
+        history.replace({ pathname: `/synthetic-accounts/${accountId}` });
         updatedOpenedSyntAccounts = updatedOpenedSyntAccounts.filter(
-          (syntAccountIndex) => syntAccountIndex !== index
+          (syntAccountIndex) => syntAccountIndex !== id
         );
       } else {
-        updatedOpenedSyntAccounts.push(index);
+        history.replace({
+          pathname: `/synthetic-accounts/${accountId}/${id}`
+        });
+        updatedOpenedSyntAccounts.push(id);
       }
       setOpenedSyntAccounts(updatedOpenedSyntAccounts);
     },
-    [openedSyntAccounts]
+    [openedSyntAccounts, syntheticAccounts]
   );
 
   return (

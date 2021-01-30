@@ -3,6 +3,7 @@ import { Accordion } from 'semantic-ui-react';
 import { ISubAccount } from '../../models/subAccounts/ISubAccount';
 import AccountTitle from '../Accounts/components/AccountTitle';
 import SubAccountDescription from './components/SubAccountDescription';
+import { history } from '../../navigation/RouterConfig';
 
 interface ISubAccounts {
   subAccounts: ISubAccount[];
@@ -23,15 +24,21 @@ const SubAccountsView: FunctionComponent<SyntheticAccountProps> = (props) => {
 
   const handleClick = useCallback(
     (_, titleProps) => {
-      const { index } = titleProps;
+      const { index: id } = titleProps;
+
+      const syntheticAccountId = subAccounts[0].syntheticAccountId;
 
       let updatedOpenedSubAccounts = [...openedSubAccounts];
-      if (openedSubAccounts.includes(index)) {
+      if (openedSubAccounts.includes(id)) {
+        history.replace({ pathname: `/sub-accounts/${syntheticAccountId}` });
         updatedOpenedSubAccounts = updatedOpenedSubAccounts.filter(
-          (syntAccountIndex) => syntAccountIndex !== index
+          (syntAccountIndex) => syntAccountIndex !== id
         );
       } else {
-        updatedOpenedSubAccounts.push(index);
+        history.replace({
+          pathname: `/sub-accounts/${syntheticAccountId}/${id}`
+        });
+        updatedOpenedSubAccounts.push(id);
       }
       setOpenedSubAccounts(updatedOpenedSubAccounts);
     },

@@ -5,6 +5,7 @@ import { IState } from '../../redux/state';
 import { fetchSyntheticAccountsRoutine } from '../../redux/routines';
 import { Redirect, useParams } from 'react-router-dom';
 import SyntheticAccountsView from './SyntheticAccountsView';
+import ApiError from '../../navigation/ApiError/ApiError';
 
 interface ISyntheticAccountsContainerParams {
   accountId?: string;
@@ -61,6 +62,10 @@ const SyntheticAccountsContainer: FunctionComponent<SyntheticAccountsContainerPr
       {!isAccountIdNumber && accountId === undefined && (
         <Redirect to={{ pathname: '/accounts' }} />
       )}
+      {syntheticAccountsRequestStatus === 'failed' &&
+        !accountSyntheticAccounts?.length && (
+          <ApiError apiType={'syntheticAccounts'} />
+        )}
       <SyntheticAccountsView
         syntheticAccounts={accountSyntheticAccounts}
         openedSyntheticAccountId={openedSyntheticAccountId}

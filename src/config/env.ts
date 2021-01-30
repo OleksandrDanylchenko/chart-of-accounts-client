@@ -13,7 +13,7 @@ export const env = {
     }) === 'development',
   app: {
     port: getOsEnv({
-      key: 'POST',
+      key: 'PORT',
       devDefault: '5000',
       isRequired: true
     })

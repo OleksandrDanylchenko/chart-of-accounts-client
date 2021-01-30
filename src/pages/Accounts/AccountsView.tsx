@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { IAccount } from '../../models/accounts/IAccount';
-import { Accordion, Icon } from 'semantic-ui-react';
+import { Accordion } from 'semantic-ui-react';
 import AccountView from './components/AccountView';
+import SyntheticAccountsContainer from './SyntheticAccounts/SyntheticAccountsContainer';
 
 interface IAccountsView {
   accounts: IAccount[];
@@ -34,7 +35,7 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
   return (
     <Accordion>
       {accounts.map((account, index) => (
-        <>
+        <div key={account.id}>
           <Accordion.Title
             index={index}
             active={openedAccounts.includes(index)}
@@ -44,12 +45,10 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
           </Accordion.Title>
           <Accordion.Content active={openedAccounts.includes(index)}>
             <p>
-              A dog is a type of domesticated animal. Known for its loyalty and
-              faithfulness, it can be found as a welcome guest in many
-              households across the world.
+              <SyntheticAccountsContainer accountId={account.id as number} />
             </p>
           </Accordion.Content>
-        </>
+        </div>
       ))}
     </Accordion>
   );

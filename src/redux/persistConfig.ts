@@ -7,6 +7,11 @@ const saveAccountsFilter = createBlacklistFilter('accountsRecords', [
   'accountsRequestError'
 ]);
 
+const saveSyntheticAccountsFilter = createBlacklistFilter(
+  'syntheticAccountsRecords',
+  ['syntheticAccountRequestStatus', 'syntheticAccountsRequestError']
+);
+
 // export const persistConfig = {
 //   key: 'root',
 //   storage,
@@ -17,6 +22,6 @@ const saveAccountsFilter = createBlacklistFilter('accountsRecords', [
 export const persistConfig = {
   key: 'root',
   storage: storage('chart-of-accounts-db'),
-  whitelist: ['accountsRecords'],
-  transforms: [saveAccountsFilter]
+  whitelist: ['accountsRecords', 'syntheticAccountsRecords'],
+  transforms: [saveAccountsFilter, saveSyntheticAccountsFilter]
 };

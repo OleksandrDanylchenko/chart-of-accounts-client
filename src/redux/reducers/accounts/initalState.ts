@@ -1,6 +1,6 @@
-import { IAccountsListState } from './index';
+import { IAccountsRecordsState } from './index';
 
-export const accountsInitialState: IAccountsListState = {
+export const accountsInitialState: IAccountsRecordsState = {
   accounts: [
     {
       id: 1,

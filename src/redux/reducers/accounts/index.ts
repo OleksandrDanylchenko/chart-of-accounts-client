@@ -4,7 +4,7 @@ import { fetchAccountsRoutine } from '../../routines';
 import { FetchingStatus } from '../../state';
 import { accountsInitialState } from './initalState';
 
-export interface IAccountsListState {
+export interface IAccountsRecordsState {
   accounts?: IAccount[];
   accountsRequestStatus: FetchingStatus;
   accountsRequestError?: string;
@@ -13,7 +13,7 @@ export interface IAccountsListState {
 export const accountsRecords = (
   state = accountsInitialState,
   action: Routine<any> // TODO Add typings for routines
-): IAccountsListState => {
+): IAccountsRecordsState => {
   switch (action.type) {
     case fetchAccountsRoutine.TRIGGER:
       return {
@@ -30,8 +30,8 @@ export const accountsRecords = (
     case fetchAccountsRoutine.FAILURE:
       return {
         ...state,
-        accountsRequestStatus: 'failed',
-        accountsRequestError: action.payload.toString()
+        accountsRequestError: action.payload.toString(),
+        accountsRequestStatus: 'failed'
       };
     default:
       return state;

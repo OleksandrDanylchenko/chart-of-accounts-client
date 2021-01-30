@@ -11,13 +11,6 @@ export const env = {
       key: 'NODE_ENV',
       isRequired: true
     }) === 'development',
-  app: {
-    port: getOsEnv({
-      key: 'PORT',
-      devDefault: '5000',
-      isRequired: true
-    })
-  },
   server: {
     schema: getOsEnv({
       key: 'REACT_APP_SERVER_SCHEMA',

@@ -44,9 +44,15 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
             <AccountView account={account} />
           </Accordion.Title>
           <Accordion.Content active={openedAccounts.includes(index)}>
-            <p>
-              <SyntheticAccountsContainer accountId={account.id as number} />
-            </p>
+            <>
+              {openedAccounts.includes(index) && (
+                <p>
+                  <SyntheticAccountsContainer
+                    accountId={account.id as number}
+                  />
+                </p>
+              )}
+            </>
           </Accordion.Content>
         </div>
       ))}

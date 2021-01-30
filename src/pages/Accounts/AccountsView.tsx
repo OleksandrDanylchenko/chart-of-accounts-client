@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { IAccount } from '../../models/accounts/IAccount';
 import { Accordion } from 'semantic-ui-react';
-import AccountView from './components/AccountView';
+import AccountTitle from './components/AccountTitle';
+import AccountDescription from './components/AccountDescription';
 
 interface IAccountsView {
   accounts: IAccount[];
@@ -13,8 +14,7 @@ type AccountsViewProps = IAccountsView;
 const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
   const { accounts, openedAccountId } = props;
 
-  const isOpenedAccountIdNumber =
-    openedAccountId !== undefined && Number.isInteger(Number(openedAccountId));
+  const isOpenedAccountIdNumber = Number.isInteger(Number(openedAccountId));
   const [openedAccounts, setOpenedAccounts] = useState<number[]>(
     isOpenedAccountIdNumber ? [Number(openedAccountId)] : []
   );
@@ -45,12 +45,12 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
             active={openedAccounts.includes(account.id as number)}
             onClick={handleClick}
           >
-            <AccountView account={account} />
+            <AccountTitle account={account} />
           </Accordion.Title>
           <Accordion.Content
             active={openedAccounts.includes(account.id as number)}
           >
-            <p>Text</p>
+            <AccountDescription account={account} />
           </Accordion.Content>
         </div>
       ))}

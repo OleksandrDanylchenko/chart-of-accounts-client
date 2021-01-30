@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import { ISyntheticAccount } from '../../models/syntheticAccounts/ISyntheticAccount';
 import { IState } from '../../redux/state';
 import { fetchSyntheticAccountsRoutine } from '../../redux/routines';
+import { Redirect, useParams } from 'react-router-dom';
+import SyntheticAccountsView from './SyntheticAccountsView';
+
+interface ISyntheticAccountsContainerParams {
+  accountId: string;
+  id?: string;
+}
 
 interface ISyntheticAccountsContainer {
   accountId: number;
@@ -16,11 +23,13 @@ const SyntheticAccountsContainer: FunctionComponent<SyntheticAccountsContainerPr
   props
 ) => {
   const {
-    accountId,
     syntheticAccounts,
     syntheticAccountsRequestStatus,
     fetchSyntheticAccounts
   } = props;
+
+  const { accountId, id } = useParams<ISyntheticAccountsContainerParams>();
+  const isAccountIdNumber = Number.isInteger(Number(accountId));
 
   const [accountSyntheticAccounts, setAccountSyntheticAccounts] = useState<
     ISyntheticAccount[]
@@ -34,12 +43,22 @@ const SyntheticAccountsContainer: FunctionComponent<SyntheticAccountsContainerPr
 
   useEffect(() => {
     const accountSyntheticAccounts = syntheticAccounts
-      ?.filter((syntheticAccount) => syntheticAccount.accountId === accountId)
+      ?.filter(
+        (syntheticAccount) => syntheticAccount.accountId === Number(accountId)
+      )
       .sort((a, b) => a.number - b.number);
     setAccountSyntheticAccounts(accountSyntheticAccounts ?? []);
   }, [accountId, syntheticAccounts]);
 
-  return <pre>{JSON.stringify(accountSyntheticAccounts, null, 2)}</pre>;
+  return (
+    <>
+      {!isAccountIdNumber && <Redirect to={{ pathname: '/accounts' }} />}
+      <SyntheticAccountsView
+        syntheticAccounts={accountSyntheticAccounts}
+        openedSyntheticAccountId={id}
+      />
+    </>
+  );
 };
 
 const mapStateToProps = (state: IState) => ({

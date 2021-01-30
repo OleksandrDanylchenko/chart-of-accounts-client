@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { ISyntheticAccount } from '../../models/syntheticAccounts/ISyntheticAccount';
 import { Accordion } from 'semantic-ui-react';
 import AccountTitle from '../Accounts/components/AccountTitle';
-import SyntheticAccountDescription from './components/SytheticDescription';
+import SyntheticAccountDescription from './components/SytheticAccountDescription';
 
 interface ISyntheticAccounts {
   syntheticAccounts: ISyntheticAccount[];
@@ -27,15 +27,15 @@ const SyntheticAccountsView: FunctionComponent<SyntheticAccountProps> = (
     (_, titleProps) => {
       const { index } = titleProps;
 
-      let updatedOpenedAccounts = [...openedSyntAccounts];
+      let updatedOpenedSyntAccounts = [...openedSyntAccounts];
       if (openedSyntAccounts.includes(index)) {
-        updatedOpenedAccounts = updatedOpenedAccounts.filter(
+        updatedOpenedSyntAccounts = updatedOpenedSyntAccounts.filter(
           (syntAccountIndex) => syntAccountIndex !== index
         );
       } else {
-        updatedOpenedAccounts.push(index);
+        updatedOpenedSyntAccounts.push(index);
       }
-      setOpenedSyntAccounts(updatedOpenedAccounts);
+      setOpenedSyntAccounts(updatedOpenedSyntAccounts);
     },
     [openedSyntAccounts]
   );

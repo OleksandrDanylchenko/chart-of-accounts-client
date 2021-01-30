@@ -20,7 +20,7 @@ const AccountsContainer: FunctionComponent<AccountsContainerProps> = (
   const { accounts, accountsRequestStatus, fetchAccounts } = props;
   const [sortedAccounts, setSortedAccounts] = useState<IAccount[]>([]);
 
-  const { id } = useParams<IAccountsContainerParams>();
+  const { id: openedAccountId } = useParams<IAccountsContainerParams>();
 
   useEffect(() => {
     if (accountsRequestStatus === 'idle') {
@@ -36,7 +36,10 @@ const AccountsContainer: FunctionComponent<AccountsContainerProps> = (
   return (
     <div>
       {sortedAccounts?.length > 0 && (
-        <AccountsView accounts={sortedAccounts} openedAccountId={id} />
+        <AccountsView
+          accounts={sortedAccounts}
+          openedAccountId={openedAccountId}
+        />
       )}
       {accountsRequestStatus === 'failed' && !sortedAccounts?.length && (
         <ApiError apiType={'accounts'} />

@@ -13,6 +13,10 @@ const SyntheticAccountsContainer = React.lazy(
   () => import('../pages/SyntheticAccounts/SyntheticAccountsContainer')
 );
 
+const SubAccountsContainer = React.lazy(
+  () => import('../pages/SubAccounts/SubAccountsContainer')
+);
+
 const Routing: FunctionComponent = () => (
   <Suspense
     fallback={
@@ -32,11 +36,11 @@ const Routing: FunctionComponent = () => (
         title="Synthetic accounts"
         component={SyntheticAccountsContainer}
       />
-      {/*<PublicRoute*/}
-      {/*  path="/sub-accounts/:syntheticAccountId/:id"*/}
-      {/*  title="Sub accounts"*/}
-      {/*  component={AccountsContainer}*/}
-      {/*/>*/}
+      <PublicRoute
+        path="/sub-accounts/:syntheticAccountId/:id?"
+        title="Sub accounts"
+        component={SubAccountsContainer}
+      />
       <Route path="/*">
         <Redirect to="/accounts" />
       </Route>

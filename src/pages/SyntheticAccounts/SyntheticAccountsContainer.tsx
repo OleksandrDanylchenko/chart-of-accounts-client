@@ -7,7 +7,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import SyntheticAccountsView from './SyntheticAccountsView';
 
 interface ISyntheticAccountsContainerParams {
-  accountId: string;
+  accountId?: string;
   id?: string;
 }
 
@@ -23,13 +23,19 @@ const SyntheticAccountsContainer: FunctionComponent<SyntheticAccountsContainerPr
   props
 ) => {
   const {
+    accountId: propsAccountId,
     syntheticAccounts,
     syntheticAccountsRequestStatus,
     fetchSyntheticAccounts
   } = props;
 
-  const { accountId, id } = useParams<ISyntheticAccountsContainerParams>();
-  const isAccountIdNumber = Number.isInteger(Number(accountId));
+  const {
+    accountId: paramsAccountId,
+    id: openedSyntheticAccountId
+  } = useParams<ISyntheticAccountsContainerParams>();
+  const isAccountIdNumber = Number.isInteger(Number(paramsAccountId));
+
+  const accountId = isAccountIdNumber ? paramsAccountId : propsAccountId;
 
   const [accountSyntheticAccounts, setAccountSyntheticAccounts] = useState<
     ISyntheticAccount[]
@@ -52,10 +58,12 @@ const SyntheticAccountsContainer: FunctionComponent<SyntheticAccountsContainerPr
 
   return (
     <>
-      {!isAccountIdNumber && <Redirect to={{ pathname: '/accounts' }} />}
+      {!isAccountIdNumber && accountId === undefined && (
+        <Redirect to={{ pathname: '/accounts' }} />
+      )}
       <SyntheticAccountsView
         syntheticAccounts={accountSyntheticAccounts}
-        openedSyntheticAccountId={id}
+        openedSyntheticAccountId={openedSyntheticAccountId}
       />
     </>
   );

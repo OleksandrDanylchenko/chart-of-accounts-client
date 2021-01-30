@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { IState } from '../../../redux/state';
-import { fetchSyntheticAccountsRoutine } from '../../../redux/routines';
-import { ISyntheticAccount } from '../../../models/syntheticAccounts/ISyntheticAccount';
+import { ISyntheticAccount } from '../../models/syntheticAccounts/ISyntheticAccount';
+import { IState } from '../../redux/state';
+import { fetchSyntheticAccountsRoutine } from '../../redux/routines';
 
 interface ISyntheticAccountsContainer {
   accountId: number;

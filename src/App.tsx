@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
-import AccountsContainer from './pages/Accounts/AccountsContainer';
 import { persistor, store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Loader from 'react-loader-spinner';
+import { Router } from 'react-router-dom';
+import Routing, { history } from './navigation/RouterConfig';
 
 const App: FunctionComponent = () => {
   return (
@@ -16,7 +17,9 @@ const App: FunctionComponent = () => {
         // @ts-ignore
         persistor={persistor}
       >
-        <AccountsContainer />
+        <Router history={history}>
+          <Routing />
+        </Router>
       </PersistGate>
     </Provider>
   );

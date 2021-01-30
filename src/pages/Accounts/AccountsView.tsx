@@ -2,7 +2,6 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { IAccount } from '../../models/accounts/IAccount';
 import { Accordion } from 'semantic-ui-react';
 import AccountView from './components/AccountView';
-import SyntheticAccountsContainer from './SyntheticAccounts/SyntheticAccountsContainer';
 
 interface IAccountsView {
   accounts: IAccount[];
@@ -44,15 +43,7 @@ const AccountsView: FunctionComponent<AccountsViewProps> = (props) => {
             <AccountView account={account} />
           </Accordion.Title>
           <Accordion.Content active={openedAccounts.includes(index)}>
-            <>
-              {openedAccounts.includes(index) && (
-                <p>
-                  <SyntheticAccountsContainer
-                    accountId={account.id as number}
-                  />
-                </p>
-              )}
-            </>
+            <>{openedAccounts.includes(index) && <p>Text</p>}</>
           </Accordion.Content>
         </div>
       ))}

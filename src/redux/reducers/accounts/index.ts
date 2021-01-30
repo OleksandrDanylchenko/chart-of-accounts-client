@@ -33,6 +33,14 @@ export const accountsRecords = (
         accountsRequestError: action.payload.toString(),
         accountsRequestStatus: 'failed'
       };
+    case 'persist/REHYDRATE': {
+      if (!action.payload?.accountsRecords) return { ...state };
+
+      return {
+        ...(action.payload.accountsRecords ?? accountsInitialState),
+        accountsRequestStatus: 'idle'
+      };
+    }
     default:
       return state;
   }

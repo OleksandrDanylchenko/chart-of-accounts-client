@@ -25,11 +25,11 @@ const AccountsContainer: FunctionComponent<AccountsContainerProps> = (
   useEffect(() => {
     const sortedAccounts = accounts?.sort((a, b) => a.number - b.number);
     setSortedAccounts(sortedAccounts ?? []);
-  }, [accounts]);
+  }, [accounts, accountsRequestStatus]);
 
   return (
     <div>
-      {sortedAccounts?.length && <AccountsView accounts={sortedAccounts} />}
+      {sortedAccounts?.length > 0 && <AccountsView accounts={sortedAccounts} />}
       {accountsRequestStatus === 'failed' && !sortedAccounts?.length && (
         <ApiError apiType={'accounts'} />
       )}

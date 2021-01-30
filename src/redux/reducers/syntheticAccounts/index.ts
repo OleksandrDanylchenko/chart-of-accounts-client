@@ -33,6 +33,15 @@ export const syntheticAccountsRecords = (
         syntheticAccountsRequestError: action.payload.toString(),
         syntheticAccountRequestStatus: 'failed'
       };
+    case 'persist/REHYDRATE': {
+      if (!action.payload?.syntheticAccountsRecords) return { ...state };
+
+      return {
+        ...(action.payload.syntheticAccountsRecords ??
+          syntheticAccountsInitialState),
+        syntheticAccountRequestStatus: 'idle'
+      };
+    }
     default:
       return state;
   }

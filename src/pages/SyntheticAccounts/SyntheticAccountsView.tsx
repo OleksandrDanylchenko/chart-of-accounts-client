@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { ISyntheticAccount } from '../../models/syntheticAccounts/ISyntheticAccount';
 import { Accordion } from 'semantic-ui-react';
 import AccountTitle from '../Accounts/components/AccountTitle';
-import AccountDescription from '../Accounts/components/AccountDescription';
+import SyntheticAccountDescription from './components/SytheticDescription';
 
 interface ISyntheticAccounts {
   syntheticAccounts: ISyntheticAccount[];
@@ -54,7 +54,7 @@ const SyntheticAccountsView: FunctionComponent<SyntheticAccountProps> = (
           <Accordion.Content
             active={openedSyntAccounts.includes(syntheticAccount.id as number)}
           >
-            <AccountDescription account={syntheticAccount} />
+            <SyntheticAccountDescription syntheticAccount={syntheticAccount} />
           </Accordion.Content>
         </div>
       ))}

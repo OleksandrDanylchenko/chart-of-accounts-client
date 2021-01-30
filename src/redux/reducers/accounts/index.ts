@@ -2,6 +2,7 @@ import { IAccount } from '../../../models/accounts/IAccount';
 import { Routine } from 'redux-saga-routines';
 import { fetchAccountsRoutine } from '../../routines';
 import { FetchingStatus } from '../../state';
+import { accountsInitialState } from './initalState';
 
 export interface IAccountsListState {
   accounts?: IAccount[];
@@ -9,13 +10,8 @@ export interface IAccountsListState {
   accountsRequestError?: string;
 }
 
-const initialState: IAccountsListState = {
-  accounts: undefined,
-  accountsRequestStatus: 'idle'
-};
-
 export const accountsRecords = (
-  state = initialState,
+  state = accountsInitialState,
   action: Routine<any> // TODO Add typings for routines
 ): IAccountsListState => {
   switch (action.type) {
